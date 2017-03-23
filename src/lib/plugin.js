@@ -410,7 +410,7 @@ class FiveBellsLedger extends EventEmitter2 {
 
   /**
    * @param {Object} message
-   * @param {IlpAddress} message.account
+   * @param {IlpAddress} message.to
    * @param {IlpAddress} message.ledger
    * @param {Object} message.data
    * @param {Object} message.custom (optional)
@@ -430,9 +430,6 @@ class FiveBellsLedger extends EventEmitter2 {
     }
     if (typeof message.to !== 'string' && typeof message.account !== 'string') {
       throw new errors.InvalidFieldsError('invalid account')
-    }
-    if (message.to && message.account) {
-      throw new errors.InvalidFieldsError('"to" and "account" cannot both be defined')
     }
     if (typeof message.data !== 'object') {
       throw new errors.InvalidFieldsError('invalid data')
@@ -477,9 +474,6 @@ class FiveBellsLedger extends EventEmitter2 {
     }
     if (typeof transfer.to !== 'string' && typeof transfer.account !== 'string') {
       throw new errors.InvalidFieldsError('invalid account')
-    }
-    if (transfer.to && transfer.account) {
-      throw new errors.InvalidFieldsError('"to" and "account" cannot both be defined')
     }
     if (transfer.account) {
       util.deprecate(() => {}, 'switch from using "account" to "to"')()
